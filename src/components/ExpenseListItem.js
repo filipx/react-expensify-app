@@ -5,7 +5,9 @@ import numeral from 'numeral';
 
 const ExpenseListItem = ({ description, amount, createdAt, id }) => (
   <div>
-    <h2><Link to={`/edit/${id}`}>{description}</Link></h2>
+    <h2>
+      <Link to={`/edit/${id}`}>{description}</Link>
+    </h2>
     <p>
       {numeral(amount / 100).format('$0,0.00')} 
       - 
