@@ -1,10 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 import { shallow } from 'enzyme';
-import { EditExpensePage } from '../../components/EditExpensePage';
 import expenses from '../fixtures/expenses';
+import { EditExpensePage } from '../../components/EditExpensePage';
 
 let editExpense, removeExpense, history, wrapper;
+
 beforeEach(() => {
   editExpense = jest.fn();
   removeExpense = jest.fn();
@@ -14,10 +14,12 @@ beforeEach(() => {
       editExpense={editExpense} 
       removeExpense={removeExpense}
       history={history}
-      expense={expenses[2]} />);
+      expense={expenses[2]} 
+    />
+  );
 });
 
-test('should render EditExpensePage correctly',() => {
+test('should render EditExpensePage', () => {
   expect(wrapper).toMatchSnapshot();
 });
 
@@ -30,5 +32,7 @@ test('should handle editExpense with correct data', () => {
 test('should handle removeExpense', () => {
   wrapper.find('button').simulate('click');
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(removeExpense).toHaveBeenLastCalledWith({ id: expenses[2].id });
+  expect(removeExpense).toHaveBeenLastCalledWith({
+    id: expenses[2].id
+  });
 });
