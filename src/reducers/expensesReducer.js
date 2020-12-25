@@ -8,8 +8,7 @@ export default (state = expensesDefaultState, action) => {
       return [
         ...state,
         action.expense
-      ]
-      break;
+      ];
     case 'EDIT_EXPENSE':
       return state.map((expense) => {
         if (expense.id === action.id) {
@@ -23,7 +22,8 @@ export default (state = expensesDefaultState, action) => {
       });
     case 'REMOVE_EXPENSE':
       return state.filter((expense) => expense.id !== action.id);
-      break;
+    case 'SET_EXPENSES':
+      return action.expenses;
     default:
       return state;
   }
