@@ -53,5 +53,8 @@
     "react-test-renderer": "^16.3.2",
     "webpack-dev-server": "^3.0.0"
   },
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "15.x"
+  }
 }
