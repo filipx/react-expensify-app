@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -13,7 +13,6 @@ else if (process.env.NODE_ENV === 'development') {
 
 module.exports = (env) => {
   const isProduction = env === 'production';
-  const CSSExtract = new ExtractTextPlugin('styles.css');
   
   return {
     entry: "./src/app.js",
@@ -24,31 +23,16 @@ module.exports = (env) => {
     module: {
       rules: [{
         loader: 'babel-loader',
-        test: /\.js$/,
+        test: /\.js$/i,
         exclude: /node_modules/
       },
       {
-        test: /\.s?css$/,
-        use: CSSExtract.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ]
-        })
+        test: /\.s?css$/i,
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
       }]
     },
     plugins: [
-      CSSExtract,
+      new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({
         'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
         'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),
